@@ -2,14 +2,12 @@ package com.dbproyectoinventario.dbproinventario.controller;
 
 import com.dbproyectoinventario.dbproinventario.model.Product;
 import com.dbproyectoinventario.dbproinventario.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;
 
@@ -17,7 +15,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/insertProduct")
+    @PostMapping
     public Product createProduct(@RequestBody Product product) {
         try{
             return productService.insertProduct(product);
@@ -27,7 +25,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/getProduct")
+    @GetMapping
     public List<Product> getProducts(){
         try{
             return productService.getProducts();

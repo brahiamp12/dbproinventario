@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Employee {
+public class EmployeeUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -14,14 +14,14 @@ public class Employee {
     private String username;
     private String password;
 
-    public Employee(int id, String document, String username, String password) {
+    public EmployeeUser(int id, String document, String username, String password) {
         this.id = id;
         this.document = document;
         this.username = username;
         this.password = password;
     }
 
-    public Employee() {
+    public EmployeeUser() {
     }
 
     public int getId() {

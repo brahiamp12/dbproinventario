@@ -1,4 +1,4 @@
-package com.dbproyectoinventario.dbproinventario.model;
+/*package com.dbproyectoinventario.dbproinventario.model;
 
 import jakarta.persistence.*;
 
@@ -12,14 +12,14 @@ public class Usuario {
     @OneToOne
     @MapsId
     @JoinColumn(name = "id_employee")
-    private Employee employee;
+    private EmployeeUser employeeUser;
 
-    public Usuario(int id, String document, String username, String password, Employee employee) {
+    public Usuario(int id, String document, String username, String password, EmployeeUser employeeUser) {
         this.id = id;
         this.document = document;
         this.username = username;
         this.password = password;
-        this.employee = employee;
+        this.employeeUser = employeeUser;
     }
 
     public Usuario() {
@@ -57,11 +57,12 @@ public class Usuario {
         this.password = password;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public EmployeeUser getEmployee() {
+        return employeeUser;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployee(EmployeeUser employeeUser) {
+        this.employeeUser = employeeUser;
     }
 }
+*/

@@ -3,7 +3,6 @@ package com.dbproyectoinventario.dbproinventario.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class ProductStock {
@@ -12,7 +11,7 @@ public class ProductStock {
     private int id;
     @ManyToOne
     @JoinColumn(name = "id_employee")
-    private Employee employee;
+    private EmployeeUser employeeUser;
     @Column(nullable = false)
     private String type;
     @Column(nullable = false)
@@ -22,9 +21,9 @@ public class ProductStock {
     @JoinColumn(name = "id_product")
     private Product product;
 
-    public ProductStock(int id, Employee employee, String type, int quantity, LocalDate create_date, Product product) {
+    public ProductStock(int id, EmployeeUser employeeUser, String type, int quantity, LocalDate create_date, Product product) {
         this.id = id;
-        this.employee = employee;
+        this.employeeUser = employeeUser;
         this.type = type;
         this.quantity = quantity;
         this.create_date = create_date;
@@ -42,12 +41,12 @@ public class ProductStock {
         this.id = id;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public EmployeeUser getEmployee() {
+        return employeeUser;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployee(EmployeeUser employeeUser) {
+        this.employeeUser = employeeUser;
     }
 
     public String getType() {

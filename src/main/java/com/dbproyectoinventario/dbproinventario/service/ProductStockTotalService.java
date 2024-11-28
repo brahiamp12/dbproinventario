@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class ProductStockTotalService {
     @Autowired
-    private ProductStockTotalRepository productStockTotalRepository;
+    private final ProductStockTotalRepository productStockTotalRepository;
     private final ProductRepository productRepository;
 
 
@@ -33,10 +33,15 @@ public class ProductStockTotalService {
 
         Optional<ProductStockTotal> productStockTotalProduct = productStockTotalRepository.findById(productStockTotal.getProduct().getId());
         if(productStockTotalProduct.isPresent()) {
-            returns
+            return null;
+
         }
 
+        return productStockTotalRepository.save(productStockTotal);
+    }
 
+    public List<ProductStockTotal> getTotalStock(){
+        return productStockTotalRepository.findAll();
     }
 
 

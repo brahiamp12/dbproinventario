@@ -46,6 +46,14 @@ public class ProductStockTotal {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    public String toString() {
+        return "ProductStockTotal{" +
+                "id=" + id +
+                ", quantity=" + quantity +
+                ", product=" + product +
+                '}';
+    }
 }
 
 

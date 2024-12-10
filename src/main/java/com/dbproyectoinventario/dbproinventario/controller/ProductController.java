@@ -2,12 +2,16 @@ package com.dbproyectoinventario.dbproinventario.controller;
 
 import com.dbproyectoinventario.dbproinventario.model.Product;
 import com.dbproyectoinventario.dbproinventario.service.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/products")
+@CrossOrigin(origins = "*")
 public class ProductController {
     private final ProductService productService;
 
@@ -33,6 +37,40 @@ public class ProductController {
             throw new RuntimeException("Error getting products", e);
         }
 
+    }
+
+    @GetMapping("/{name}")
+    public List<Product> getProductNames(@PathVariable String name) {
+        try {
+            return productService.getProductsByName(name);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Error getting product by name", e);
+        }
+
+    }
+
+    @GetMapping("/{name}/{reference}")
+    public List<Product> getProductNamesyReferences(@PathVariable String name, @PathVariable String reference) {
+        try {
+            return productService.getProductsByNameAndReference(name, reference);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Error getting product by name and reference", e);
+        }
+    }
+
+    @GetMapping("delete/{id}")
+    public Product deleteProduct(@PathVariable Integer id){
+        try {
+            return productService.deleteProductById(id);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Error delete producto", e);
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Product> UpdateProductParcial(@PathVariable int id, @RequestBody Map<String, Object> cambios){
+        Product actualizedProduct = productService.updateProduct(id, cambios);
+        return ResponseEntity.ok(actualizedProduct);
     }
 
 }

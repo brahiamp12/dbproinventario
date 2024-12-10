@@ -5,10 +5,11 @@ import com.dbproyectoinventario.dbproinventario.service.ProductStockTotalService
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/product-stock-total")
+@CrossOrigin(origins = "*")
 public class ProductStockTotalController {
     private final ProductStockTotalService productStockTotalService;
 

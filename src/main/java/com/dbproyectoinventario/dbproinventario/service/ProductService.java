@@ -34,6 +34,11 @@ public class ProductService {
 
     public Product insertProduct(Product product) {
         try {
+            List<Product> productReference = productRepository.findByReference(product.getReference());
+            if (!productReference.isEmpty()){
+                throw new RuntimeException("Ya existe un producto con esa referencia");
+
+            }
             return productRepository.save(product);
         }catch (RuntimeException e) {
             throw new RuntimeException("Error al insertar producto", e);
@@ -59,6 +64,14 @@ public class ProductService {
     public List<Product> getProductsByNameAndReference(String name, String reference){
         try {
             return productRepository.findByNameAndReference(name, reference);
+        }catch (RuntimeException e){
+            throw new RuntimeException("Error obteniendo productos por nombre y referencia", e);
+        }
+    }
+
+    public List<Product> getProductsByReference(String reference){
+        try {
+            return productRepository.findByReference(reference);
         }catch (RuntimeException e){
             throw new RuntimeException("Error obteniendo productos por nombre y referencia", e);
         }

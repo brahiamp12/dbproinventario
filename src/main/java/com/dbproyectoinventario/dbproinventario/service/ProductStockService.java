@@ -29,11 +29,11 @@ public class ProductStockService {
         Product product = productRepository.findById(productStock.getProduct().getId())
                 .orElseThrow(()->new IllegalStateException("Producto no encontrado"));
 
-        ProductStockTotal productStockTotal = productStockTotalRepository.findById(productStock.getProduct().getId())
-                .orElseThrow(()->new IllegalStateException("Producto no tiene historial"));
+        ProductStockTotal productStockTotal = productStockTotalRepository.findByProduct_Id(productStock.getProduct().getId())
+                .orElse(null);
 
         Optional<ProductStock> productStockProduct = productStockRepository.findById(productStock.getProduct().getId());
-        if(productStockProduct.isPresent()) {
+        if(productStockTotal != null) {
             //ProductStock existingProductStock = productStockProduct.get();
             //Optional<ProductStockTotal> productStockTotal = productStockTotalRepository.findById(productStock.getId());
             if (Objects.equals(productStock.getType(), "Salida")){
@@ -45,14 +45,17 @@ public class ProductStockService {
                 productStockTotal.setQuantity(productStockTotal.getQuantity() + productStock.getQuantity());
             }
 
-            productStockTotalRepository.save(productStockTotal);
-            return  productStockRepository.save(productStock);
+            //productStockTotalRepository.save(productStockTotal);
+            //return  productStockRepository.save(productStock);
 
         }else {
+            productStockTotal = new ProductStockTotal();
+            productStockTotal.setProduct(product);
             productStockTotal.setQuantity(productStock.getQuantity());
-            productStockTotalRepository.save(productStockTotal);
-            return productStockRepository.save(productStock);
+
         }
+        productStockTotalRepository.save(productStockTotal);
+        return productStockRepository.save(productStock);
     }
 
     public List<ProductStock> getStock(){

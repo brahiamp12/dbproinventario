@@ -39,7 +39,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("name/{name}")
     public List<Product> getProductNames(@PathVariable String name) {
         try {
             return productService.getProductsByName(name);
@@ -49,16 +49,24 @@ public class ProductController {
 
     }
 
-    @GetMapping("/{name}/{reference}")
-    public List<Product> getProductNamesyReferences(@PathVariable String name, @PathVariable String reference) {
+    @GetMapping("name/{name}reference/{reference}")
+    public List<Product> getProductNameyReferences(@PathVariable String name, @PathVariable String reference) {
         try {
             return productService.getProductsByNameAndReference(name, reference);
         } catch (RuntimeException e) {
             throw new RuntimeException("Error getting product by name and reference", e);
         }
     }
+    @GetMapping("reference/{reference}")
+    public List<Product> getProductReferences(@PathVariable String reference) {
+        try {
+            return productService.getProductsByReference(reference);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Error getting product by name and reference", e);
+        }
+    }
 
-    @GetMapping("delete/{id}")
+    @DeleteMapping("delete/{id}")
     public Product deleteProduct(@PathVariable Integer id){
         try {
             return productService.deleteProductById(id);
@@ -67,7 +75,8 @@ public class ProductController {
         }
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("update/{id}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Product> UpdateProductParcial(@PathVariable int id, @RequestBody Map<String, Object> cambios){
         Product actualizedProduct = productService.updateProduct(id, cambios);
         return ResponseEntity.ok(actualizedProduct);
